@@ -18,7 +18,7 @@ dead_letter_queue = "justquality-akaire-sync-dlq"
 [vars]
 GITHUB_REPO = "kazu-42/JustQuality"
 GITHUB_ISSUE_LABEL_PREFIX = "akaire/"
-VIEWER_BASE_URL = "https://akaire.pages.dev"
+VIEWER_BASE_URL = "https://akaire-viewer.pages.dev"
 
 # Secrets (wrangler secret put で設定):
 #   GH_TOKEN              GitHub PAT / app token

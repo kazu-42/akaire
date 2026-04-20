@@ -85,7 +85,10 @@ async function createIssue(
   const quoteShort = truncate(annotation.quote, 60);
   const title = `[p.${annotation.page} / ch.${chapterNumber}] ${annotation.kind}: ${quoteShort}`;
 
-  const viewerUrl = `${env.VIEWER_BASE_URL}/view/${annotation.version_id}#p${annotation.page}-aid-${annotation.id}`;
+  // viewer は hash routing なので #/view/... 形式。
+  // ページ/アノテーション ID は query にして hash の後ろに挟めないので
+  // hash 一本で表現 (viewer 側で解釈)。
+  const viewerUrl = `${env.VIEWER_BASE_URL}/#/view/${annotation.version_id}?aid=${annotation.id}`;
   const body = [
     `> ${annotation.quote.replace(/\n/g, "\n> ")}`,
     "",
