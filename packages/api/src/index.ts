@@ -7,9 +7,28 @@ import type { Env } from "./env";
 
 const app = new Hono<{ Bindings: Env }>();
 
-// CORS は開発時・独自ドメインの viewer から叩くため開けておく。
-// 本番は Access が前段にいるので、同一 tenant からしか到達しない。
-app.use("*", cors());
+// CORS: credentials: 'include' を通すために wildcard ではなく明示 origin を返す。
+// Viewer は pages.dev。独自ドメイン化したら追加する。
+app.use(
+  "*",
+  cors({
+    origin: (origin) => {
+      if (!origin) return "*";
+      if (origin.endsWith(".akaire-viewer.pages.dev")) return origin;
+      if (origin === "https://akaire-viewer.pages.dev") return origin;
+      if (origin.startsWith("http://localhost:")) return origin;
+      return null;
+    },
+    credentials: true,
+    allowHeaders: [
+      "Content-Type",
+      "X-Dev-Email",
+      "X-Dev-Github",
+      "Cf-Access-Jwt-Assertion",
+    ],
+    allowMethods: ["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+  })
+);
 
 app.get("/", (c) =>
   c.json({
