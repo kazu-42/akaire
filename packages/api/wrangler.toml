@@ -1,0 +1,24 @@
+# akaire API Worker
+# 実運用 ID は app/akaire-config/wrangler.toml.local から流用する想定。
+# ここはテンプレ値だが、ローカル開発で `wrangler dev` するなら
+# --config で wrangler.toml.local を読むか、値をここに直接書いて動作確認する。
+
+name = "akaire-api"
+main = "src/index.ts"
+compatibility_date = "2026-04-01"
+compatibility_flags = ["nodejs_compat"]
+
+# D1 binding
+[[d1_databases]]
+binding = "DB"
+database_name = "justquality-akaire"
+database_id = "30dca631-8689-4aa9-90b1-319a263e2179"
+
+# Queue producer (annotation created/updated などのイベント)
+[[queues.producers]]
+queue = "justquality-akaire-sync"
+binding = "SYNC_QUEUE"
+
+[vars]
+ACCESS_TEAM_DOMAIN = "TODO.cloudflareaccess.com"
+ACCESS_APP_AUD = "TODO"

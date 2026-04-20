@@ -1,0 +1,25 @@
+{
+  "name": "akaire",
+  "version": "0.0.1",
+  "private": true,
+  "description": "PDF feedback system with highlight-and-comment UX, self-hostable on Cloudflare.",
+  "license": "Apache-2.0",
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:api": "npm -w @akaire/api run dev",
+    "dev:pdf-server": "npm -w @akaire/pdf-server run dev",
+    "dev:sync-github": "npm -w @akaire/sync-github run dev",
+    "deploy:api": "npm -w @akaire/api run deploy",
+    "deploy:pdf-server": "npm -w @akaire/pdf-server run deploy",
+    "deploy:sync-github": "npm -w @akaire/sync-github run deploy",
+    "deploy:all": "npm run deploy:api && npm run deploy:pdf-server && npm run deploy:sync-github",
+    "typecheck": "tsc -b packages/api packages/pdf-server packages/sync-github"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260401.0",
+    "typescript": "^5.4.5",
+    "wrangler": "^4.50.0"
+  }
+}

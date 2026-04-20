@@ -1,0 +1,18 @@
+name = "akaire-pdf-server"
+main = "src/index.ts"
+compatibility_date = "2026-04-01"
+compatibility_flags = ["nodejs_compat"]
+
+[[r2_buckets]]
+binding = "PDFS"
+bucket_name = "justquality-akaire-pdfs"
+
+# D1 は直接は不要だが、バージョン存在確認のため使う。
+[[d1_databases]]
+binding = "DB"
+database_name = "justquality-akaire"
+database_id = "30dca631-8689-4aa9-90b1-319a263e2179"
+
+[vars]
+ACCESS_TEAM_DOMAIN = "TODO.cloudflareaccess.com"
+ACCESS_APP_AUD = "TODO"

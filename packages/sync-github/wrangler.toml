@@ -1,0 +1,25 @@
+name = "akaire-sync-github"
+main = "src/index.ts"
+compatibility_date = "2026-04-01"
+compatibility_flags = ["nodejs_compat"]
+
+[[d1_databases]]
+binding = "DB"
+database_name = "justquality-akaire"
+database_id = "30dca631-8689-4aa9-90b1-319a263e2179"
+
+[[queues.consumers]]
+queue = "justquality-akaire-sync"
+max_batch_size = 10
+max_batch_timeout = 30
+max_retries = 3
+dead_letter_queue = "justquality-akaire-sync-dlq"
+
+[vars]
+GITHUB_REPO = "kazu-42/JustQuality"
+GITHUB_ISSUE_LABEL_PREFIX = "akaire/"
+VIEWER_BASE_URL = "https://akaire.pages.dev"
+
+# Secrets (wrangler secret put で設定):
+#   GH_TOKEN              GitHub PAT / app token
+#   GITHUB_WEBHOOK_SECRET Webhook HMAC 検証キー
