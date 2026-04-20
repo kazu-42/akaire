@@ -1,0 +1,17 @@
+{
+  "name": "@akaire/cli",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "bin": {
+    "akaire": "./bin/akaire.mjs"
+  },
+  "scripts": {
+    "dev": "node bin/akaire.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.4.5"
+  }
+}
