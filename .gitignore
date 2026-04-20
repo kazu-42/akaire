@@ -1,0 +1,50 @@
+# Node
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Build outputs
+dist/
+build/
+.svelte-kit/
+.wrangler/
+.next/
+.output/
+
+# Environment (never commit)
+.env
+.env.local
+.env.*.local
+.dev.vars
+
+# Cloudflare local state
+.wrangler/
+wrangler.toml.local
+
+# OS / Editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log
+logs/
+
+# Coverage
+coverage/
+.nyc_output/
+
+# Local databases
+*.sqlite
+*.sqlite-journal
+*.db
+
+# Python (for metadata extraction scripts, if used)
+__pycache__/
+*.pyc
+.venv/
+venv/

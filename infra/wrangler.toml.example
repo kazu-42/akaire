@@ -1,0 +1,53 @@
+# Example wrangler.toml for akaire self-hosting.
+# Copy to `wrangler.toml` (gitignored) and fill in your own IDs.
+#
+# Get IDs:
+#   npx wrangler d1 create akaire         # returns database_id
+#   npx wrangler r2 bucket create akaire  # returns bucket name
+#   npx wrangler queues create akaire-sync
+
+name = "akaire"
+main = "packages/api/src/index.ts"
+compatibility_date = "2026-04-01"
+
+# -----------------------------------------------------------------------------
+# D1 (SQLite)
+# -----------------------------------------------------------------------------
+[[d1_databases]]
+binding = "DB"
+database_name = "akaire"
+database_id = "REPLACE_WITH_YOUR_D1_ID"
+
+# -----------------------------------------------------------------------------
+# R2 (object storage for PDFs)
+# -----------------------------------------------------------------------------
+[[r2_buckets]]
+binding = "PDFS"
+bucket_name = "akaire-pdfs"
+
+# -----------------------------------------------------------------------------
+# Queues (GitHub sync)
+# -----------------------------------------------------------------------------
+[[queues.producers]]
+queue = "akaire-sync"
+binding = "SYNC_QUEUE"
+
+[[queues.consumers]]
+queue = "akaire-sync"
+max_batch_size = 10
+max_batch_timeout = 30
+
+# -----------------------------------------------------------------------------
+# Environment variables (non-secret)
+# -----------------------------------------------------------------------------
+[vars]
+GITHUB_REPO = "your-org/your-book"        # Where to create Issues
+GITHUB_ISSUE_LABEL_PREFIX = "akaire/"
+ACCESS_TEAM_DOMAIN = "your-team.cloudflareaccess.com"
+ACCESS_APP_AUD = "REPLACE_WITH_AUD_TAG"   # from Access app settings
+
+# -----------------------------------------------------------------------------
+# Secrets (set via `wrangler secret put NAME`)
+# -----------------------------------------------------------------------------
+# GH_TOKEN               - GitHub PAT / App token for Issue creation
+# GITHUB_WEBHOOK_SECRET  - HMAC key for incoming webhook verification
